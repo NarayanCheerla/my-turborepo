@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useAppSelector } from "../features/pokemon/hooks";
+import {ConvertAsHeading} from "@repo/utils";
 
 const PokemonDetails = () => {
     const pokemonDetails = useAppSelector(state => state.pokemon.pokemon);
@@ -16,7 +17,7 @@ const PokemonDetails = () => {
             <div className="flex flex-col">
                 {
                     pokemonDetails.stats.map(stat => (
-                        <h1 key={`${stat.stat.name}-${stat.base_stat}`} className="text-2xl">{`${stat.stat.name} - ${stat.base_stat}`}</h1>
+                        <h1 key={`${stat.stat.name}-${stat.base_stat}`} className="text-2xl">{`${ConvertAsHeading(stat.stat.name)} - ${stat.base_stat}`}</h1>
                     ))
                 }
             </div>
