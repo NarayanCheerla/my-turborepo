@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-// import { Card } from "@repo/ui/card";
+import { Card } from "@repo/ui/card";
 import useGetPokemons from "../hooks/useGetPokemons";
 import { useAppDispatch } from "./features/pokemon/hooks";
 import { setPokemon } from "./features/pokemon/pokemon-slice";
@@ -58,10 +58,10 @@ const Pokemons = () => {
 
       <div className="flex flex-wrap gap-4">
         {pokemons?.map((data) => (
-          // <Card key={data.name}>
+          <Card key={data.name}>
           <div
             onClick={() => handleClick(data)}
-            className="flex flex-col items-center border bg-slate-300 rounded-md p-1 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 cursor-pointer hover:ui-border-neutral-700 hover:ui-bg-neutral-800/30"
+            className="flex flex-col items-center"
           >
             <Image
               width="100"
@@ -71,7 +71,7 @@ const Pokemons = () => {
             />
             <h1 className="font-bold">{`${data.id}.${data.name}`}</h1>
           </div>
-          // </Card>
+          </Card>
         ))}
       </div>
     </div>
