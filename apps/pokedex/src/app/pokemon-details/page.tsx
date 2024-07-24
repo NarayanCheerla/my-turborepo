@@ -1,5 +1,5 @@
 "use client";
-
+import Image from "next/image";
 import { useAppSelector } from "../features/pokemon/hooks";
 
 const PokemonDetails = () => {
@@ -7,6 +7,13 @@ const PokemonDetails = () => {
     return (
         <div>
             Pokemon Details...{pokemonDetails.name}
+            
+            <Image
+              width="300"
+              height="300"
+              src={pokemonDetails.sprites.other.dream_world.front_default}
+              alt={pokemonDetails.name}
+            />
         </div>
     )
 }

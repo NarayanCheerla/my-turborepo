@@ -9,8 +9,14 @@ const initialState: PokemonState = {
     pokemon: {
         name: "",
         sprites: {
-            front_default: ""
-          }
+            front_default: "",
+            other: {
+                dream_world: {
+                  front_default: ""
+                }
+              }
+          },
+          
     }
 }
 

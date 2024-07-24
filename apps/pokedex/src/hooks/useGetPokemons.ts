@@ -14,6 +14,7 @@ const useGetPokemons = () => {
     return useQuery({
         queryKey: [QUERY_KEY_POKEMONS_LIST],
         queryFn: () => getPokomons(),
+        staleTime: Infinity
     })
 };
 

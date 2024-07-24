@@ -6,8 +6,8 @@ import { useRouter } from "next/navigation";
 
 import useGetPokemons from "../hooks/useGetPokemons";
 import { useAppDispatch } from "./features/pokemon/hooks";
-import type { PokemonDetailsResponse, PokemonResponse } from "../types";
 import { setPokemon } from "./features/pokemon/pokemon-slice";
+import type { PokemonDetailsResponse, PokemonResponse } from "../types";
 
 const Pokemons = () => {
   const router = useRouter();
