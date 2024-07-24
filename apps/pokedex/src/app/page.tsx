@@ -5,10 +5,13 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import useGetPokemons from "../hooks/useGetPokemons";
+import { useAppDispatch } from "./features/pokemon/hooks";
 import type { PokemonDetailsResponse, PokemonResponse } from "../types";
+import { setPokemon } from "./features/pokemon/pokemon-slice";
 
 const Pokemons = () => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const [isErrorPokemonDetails, setIsErrorPokemonDetails] = useState(false);
   const [loadingPokemonDetails, setLoadingPokemonDetails] = useState(false);
   const [pokemons, setPokemons] = useState<PokemonDetailsResponse[]>([]);
@@ -37,6 +40,10 @@ const Pokemons = () => {
     }
   }, [data, isSuccess]);
 
+  const handleClick = (data: PokemonDetailsResponse) => {
+    dispatch(setPokemon(data));
+    router.push("/pokemon-details");
+  }
   return (
     <div className="">
       <h1 className="font-bold text-lg">Pokemons List</h1>
@@ -52,7 +59,7 @@ const Pokemons = () => {
         {pokemons?.map((data) => (
           <div
             key={data.name}
-            onClick={() => router.push("/pokemon-details")}
+            onClick={() => handleClick(data)}
             className="flex flex-col items-center border bg-slate-300 rounded-md p-1 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 cursor-pointer"
           >
             <Image
