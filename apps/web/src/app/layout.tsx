@@ -3,6 +3,9 @@ import "@repo/ui/styles.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
+import ReactQueryProvider from "./utils/providers/ReactQueryProvider";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -17,7 +20,12 @@ export default function RootLayout({
 }): JSX.Element {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`w-2/3 m-auto ${inter.className}`}>
+        <ReactQueryProvider>
+          <main>{children}</main>
+        <ReactQueryDevtools/>
+        </ReactQueryProvider>
+      </body>
     </html>
   );
 }
