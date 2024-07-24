@@ -15,6 +15,7 @@ export interface PokemonDetailsInputType  {
 };
 
 export interface PokemonDetailsResponse  {
+  id: number;
   name: string;
   sprites: {
     front_default: string;
@@ -24,4 +25,10 @@ export interface PokemonDetailsResponse  {
       }
     }
   };
+  stats: {
+    base_stat: number;
+    stat: {
+      name: string;
+    }
+  }[]
 };

@@ -68,7 +68,7 @@ const Pokemons = () => {
               src={data.sprites.front_default}
               alt={data.name ?? "pokemon image"}
             />
-            <h1 className="font-bold">{data.name}</h1>
+            <h1 className="font-bold">{`${data.id}.${data.name}`}</h1>
           </div>
         ))}
       </div>

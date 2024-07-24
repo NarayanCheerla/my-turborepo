@@ -7,6 +7,7 @@ interface PokemonState {
 
 const initialState: PokemonState = {
     pokemon: {
+        id: 0,
         name: "",
         sprites: {
             front_default: "",
@@ -16,6 +17,12 @@ const initialState: PokemonState = {
                 }
               }
           },
+          stats: [{
+            base_stat: 0,
+            stat: {
+              name: ""
+            }
+          }]
           
     }
 }
