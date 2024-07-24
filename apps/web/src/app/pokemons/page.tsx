@@ -1,32 +1,67 @@
 "use client";
+import axios from "axios";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+
 import useGetPokemons from "../../hooks/useGetPokemons";
-import useGetPokemonDetails from "../../hooks/useGetPokemonDetails";
+import type { PokemonDetailsResponse, PokemonResponse } from "../../types";
 
 const Pokemons = () => {
-  const { data, error , isError, isLoading } = useGetPokemons();
-  const {data: pokemonDetails, isError: isDetailsError, error: detailsError, isLoading: isLoadingDetails} = useGetPokemonDetails({
-    url: "https://pokeapi.co/api/v2/pokemon/1/"
-  })
+  const router = useRouter();
+  const [isErrorPokemonDetails, setIsErrorPokemonDetails] = useState(false);
+  const [loadingPokemonDetails, setLoadingPokemonDetails] = useState(false);
+  const [pokemons, setPokemons] = useState<PokemonDetailsResponse[]>([]);
+  const { data, error, isError, isLoading, isSuccess } = useGetPokemons();
+
+  const fetchPokemonDetails = async (data: PokemonResponse) => {
+    const fetchedPokemons = await Promise.all(
+      data?.results?.map(async (pokemon) => {
+        try {
+          const response = await axios.get(pokemon.url);
+          return response.data;
+        } catch (error) {
+          console.error(error);
+          setIsErrorPokemonDetails(true);
+        }
+      })
+    );
+    setPokemons(fetchedPokemons);
+    setLoadingPokemonDetails(false);
+  };
+
+  useEffect(() => {
+    if (isSuccess && data && data.results.length > 0) {
+      setLoadingPokemonDetails(true);
+      fetchPokemonDetails(data);
+    }
+  }, [data, isSuccess]);
+
   return (
     <div className="">
       <h1 className="font-bold text-lg">Pokemons List</h1>
-      {(isLoading || isLoadingDetails) && "Loading..."}
-      {isError && <div className="text-red-500">{`Error: ${error.message}`}</div>}
-      {isDetailsError && <div className="text-red-500">{`Error: ${detailsError.message}`}</div>}
+      {(isLoading || loadingPokemonDetails) && "Loading..."}
+      {isError && (
+        <div className="text-red-500">{`Error: ${error.message}`}</div>
+      )}
+      {isErrorPokemonDetails && (
+        <div className="text-red-500">Error while fetching pokemon details</div>
+      )}
+
       <div className="flex flex-wrap gap-4">
-        {data?.results?.map((pokemon) => (
+        {pokemons?.map((data) => (
           <div
-            key={pokemon.name}
+            key={data.name}
+            onClick={() => router.push("/pokemon-details")}
             className="flex flex-col items-center border bg-slate-300 rounded-md p-1 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 cursor-pointer"
           >
             <Image
               width="100"
               height="50"
-              src={pokemonDetails?.sprites.front_default ?? ""}
-              alt={pokemon.name}
+              src={data.sprites.front_default}
+              alt={data.name ?? "pokemon image"}
             />
-            <h1 className="font-bold">{pokemon.name}</h1>
+            <h1 className="font-bold">{data.name}</h1>
           </div>
         ))}
       </div>
