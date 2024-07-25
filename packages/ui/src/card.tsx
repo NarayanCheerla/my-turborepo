@@ -6,7 +6,7 @@ type CardProps = {
 
 export const Card = ({children}: CardProps):JSX.Element => {
     return (
-        <div className="border bg-slate-300 rounded-md p-1 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 cursor-pointer hover:ui-border-neutral-700 hover:ui-bg-neutral-800/30">
+        <div className="ui-flex ui-justify-center ui-w-1/2 ui-bg-slate-200 border rounded-md p-1 w-full ui-my-1 hover:ui-border-neutral-700 hover:ui-bg-neutral-800/30">
             {children}
         </div>
     )
