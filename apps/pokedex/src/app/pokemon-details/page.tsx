@@ -18,11 +18,8 @@ const PokemonDetails = () => {
 
       <div className="flex flex-col">
         {pokemonDetails.stats.map((stat) => (
-          <Card>
-            <h1
-              key={`${stat.stat.name}-${stat.base_stat}`}
-              className="text-2xl"
-            >{`${ConvertAsHeading(stat.stat.name)} - ${stat.base_stat}`}</h1>
+          <Card key={`${stat.stat.name}-${stat.base_stat}`}>
+            <h1 className="text-2xl">{`${ConvertAsHeading(stat.stat.name)} - ${stat.base_stat}`}</h1>
           </Card>
         ))}
       </div>

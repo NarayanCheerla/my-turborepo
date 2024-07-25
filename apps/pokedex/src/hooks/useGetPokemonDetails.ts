@@ -13,10 +13,12 @@ const getPokomonDetails = async (
 };
 const useGetPokemonDetails = ({ urls }: PokemonDetailsInputType) => {
   return useQueries({
-    queries: urls.map((url) => ({
+    queries: urls?.map((url) => ({
       queryKey: [QUERY_KEY_POKEMON_DETAILS, url],
       queryFn: () => getPokomonDetails(url),
-    })),
+      enabled: !!url,
+      staleTime: Infinity,
+    })) ?? [],
   });
 };
 

@@ -9,6 +9,8 @@ const initialState: PokemonState = {
     pokemon: {
         id: 0,
         name: "",
+        width: 100,
+        height: 100,
         sprites: {
             front_default: "",
             other: {

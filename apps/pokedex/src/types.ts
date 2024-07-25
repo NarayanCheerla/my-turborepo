@@ -17,6 +17,8 @@ export interface PokemonDetailsInputType  {
 export interface PokemonDetailsResponse  {
   id: number;
   name: string;
+  width:number;
+  height:number;
   sprites: {
     front_default: string;
     other: {
