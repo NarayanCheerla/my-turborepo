@@ -21,7 +21,7 @@ const Pokemons = () => {
   const [urls, setUrls] = useState<string[]>([]);
   const [previousUrl, setPreviousUrl] = useState("");
   const pokemonDetails = useGetPokemonDetails({ urls });
-  const { data, error, isError, isLoading, isFetching, isSuccess, refetch } =
+  const { data, error, isError, isLoading, isFetching, isSuccess } =
     useGetPokemons(url);
 
   useEffect(() => {
@@ -54,7 +54,9 @@ const Pokemons = () => {
               Next
             </Button>
           </div>
-          {isFetching ? "Fecthing.." : (
+          {isFetching ? (
+            "Fecthing.."
+          ) : (
             <div className="flex flex-wrap gap-4 justify-around">
               {pokemonDetails?.map(({ data, isLoading }, index) => (
                 <React.Fragment key={data?.name ?? index}>
